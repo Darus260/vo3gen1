@@ -712,7 +712,7 @@
             
             async function generatePromptFromImage() {
                 // --- IKLAN: LOGIC UNTUK KLIK TOMBOL "ANALISIS" ---
-               // openRandomAd(adLinks);
+                 openRandomAd(adLinks);
                 // --- AKHIR IKLAN ---
                 
                 if (!state.imageBase64) {
@@ -811,7 +811,7 @@
 
             function generateFinalPrompt() {
                 // --- IKLAN: LOGIC UNTUK KLIK TOMBOL "GABUNGKAN" ---
-                openRandomAd(adLinks);
+               // openRandomAd(adLinks);
                 // --- AKHIR IKLAN ---
 
                 updateLoadingState(dom.generateFinalPromptBtn, true, 'Sedang membuat...', 'fa-magic Gabungkan & Buat Prompt Final');
