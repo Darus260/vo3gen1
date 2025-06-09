@@ -811,7 +811,7 @@
 
             function generateFinalPrompt() {
                 // --- IKLAN: LOGIC UNTUK KLIK TOMBOL "GABUNGKAN" ---
-               // openRandomAd(adLinks);
+                openRandomAd(adLinks);
                 // --- AKHIR IKLAN ---
 
                 updateLoadingState(dom.generateFinalPromptBtn, true, 'Sedang membuat...', 'fa-magic Gabungkan & Buat Prompt Final');
