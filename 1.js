@@ -712,7 +712,7 @@
             
             async function generatePromptFromImage() {
                 // --- IKLAN: LOGIC UNTUK KLIK TOMBOL "ANALISIS" ---
-                openRandomAd(adLinks);
+               // openRandomAd(adLinks);
                 // --- AKHIR IKLAN ---
                 
                 if (!state.imageBase64) {
