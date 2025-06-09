@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GENERATOR PROMPT VEO3 by darus</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .section-toggle {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .section-toggle h3 {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        .section-toggle .fa-chevron-down {
+            transition: transform 0.3s;
+        }
+        .section-toggle.open .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        .section-content {
+            padding-top: 1rem;
+            border-left: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+
+    <div id="app" class="p-4 md:p-8">
+         <div class="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-2xl border border-gray-200">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2 tracking-wide">
+                GENERATOR PROMPT VEO3 by darus
+            </h1>
+            <p class="text-center text-gray-500 mb-8">Didukung oleh Google Gemini</p>
+
+            <!-- ### IKLAN PENEMPATAN ### -->
+            <!-- Ganti isi div ini dengan kode iklan Anda (misalnya, dari AdSense) -->
+            <div id="ad-placeholder-1" class="my-6 p-4 border-2 border-dashed border-gray-300 bg-gray-50 text-center text-gray-500">
+                <p>Area Iklan</p>
+                <p class="text-sm">(Ganti dengan kode iklan Anda)</p>
+            </div>
+            <!-- ### AKHIR IKLAN PENEMPATAN ### -->
+
+
+            <!-- Image-based generation section -->
+            <div id="image-analysis-section"></div>
+
+            <!-- Manual input sections -->
+            <div id="manual-sections-container"></div>
+
+            <!-- Generate button -->
+            <div class="flex justify-center mt-8">
+                <button id="generate-final-prompt-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 flex items-center justify-center">
+                    <i class="fas fa-magic mr-2"></i> Gabungkan & Buat Prompt Final
+                </button>
+            </div>
+
+            <!-- Error and result sections -->
+            <div id="error-container" class="hidden mt-8 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                <p class="font-bold">Terjadi Kesalahan:</p>
+                <p id="error-message"></p>
+            </div>
+            <div id="final-prompt-container" class="hidden mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-inner">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-gray-300 pb-2">Hasil Prompt Final Anda:</h2>
+                <pre id="final-prompt-output" class="whitespace-pre-wrap font-mono text-sm text-gray-800 bg-white p-4 rounded-md border border-gray-300 overflow-auto max-h-[50vh]"></pre>
+                <div class="flex justify-center mt-4">
+                    <button id="copy-final-prompt-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300">Salin Prompt Final</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function(_0x5a7d3c, _0x3b8b6f) {
+            const _0x582d1c = _0x2719,
+                _0x2c927c = _0x5a7d3c();
+            while (!![]) {
+                try {
+                    const _0x1a7160 = -parseInt(_0x582d1c(0x13a)) / 0x1 * (-parseInt(_0x582d1c(0x125)) / 0x2) + parseInt(_0x582d1c(0x111)) / 0x3 + parseInt(_0x582d1c(0x184)) / 0x4 + -parseInt(_0x582d1c(0x10d)) / 0x5 * (parseInt(_0x582d1c(0x133)) / 0x6) + parseInt(_0x582d1c(0x181)) / 0x7 + parseInt(_0x582d1c(0x150)) / 0x8 + parseInt(_0x582d1c(0x122)) / 0x9;
+                    if (_0x1a7160 === _0x3b8b6f) break;
+                    else _0x2c927c['push'](_0x2c927c['shift']());
+                } catch (_0x321f66) {
+                    _0x2c927c['push'](_0x2c927c['shift']());
+                }
+            }
+        }(_0x5c79, 0xcbb73));
+
+        function _0x2719(_0x4770d1, _0x507106) {
+            const _0x5c7974 = _0x5c79();
+            return _0x2719 = function(_0x271927, _0x20556e) {
+                _0x271927 = _0x271927 - 0xfe;
+                let _0x296a1a = _0x5c7974[_0x271927];
+                return _0x296a1a;
+            }, _0x2719(_0x4770d1, _0x507106);
+        }
+        const obfuscatedApiKey = 'QUl6YVN5QXpGclVkaVUwNEMwYlJVZ1MxMWhjLWVWMkIxWEtidk5N',
+            adLinks = ['https://link-iklan-anda.com/iklan-1', 'https://link-iklan-anda.com/iklan-2', 'https://link-iklan-anda.com/iklan-3', 'https://link-iklan-anda.com/iklan-4'];
+
+        function openRandomAd(_0x599049) {
+            const _0x4d193f = _0x2719;
+            if (!_0x599049 || _0x599049[_0x4d193f(0x12c)] === 0x0) {
+                console['error'](_0x4d193f(0x11c));
+                return;
+            }
+            const _0x4c520f = Math['floor'](Math['random']() * _0x599049[_0x4d193f(0x12c)]),
+                _0x1b724c = _0x599049[_0x4c520f];
+            window[_0x4d193f(0x15a)](_0x1b724c, '_blank');
+        }
+        const state = {
+            'imageBase64': '',
+            'isAnalyzing': ![],
+            'isLoading': ![],
+            'subjek': '',
+            'nama': '',
+            'usia': '',
+            'bentukTubuh': 'Normal',
+            'bentukTubuhManual': '',
+            'detailWajahRambutHidung': _0x2719(0x161),
+            'detailWajahRambutHidungManual': '',
+            'pakaian': _0x2719(0x101),
+            'pakaianManual': '',
+            'warnaPakaian': 'Merah',
+            'warnaPakaianManual': '',
+            'aksesoris': _0x2719(0x13b),
+            'aksesorisManual': '',
+            'rasEtnis': _0x2719(0x162),
+            'rasEtnisManual': '',
+            'ekspresi': '',
+            'tempat': '',
+            'waktu': 'golden-hour',
+            'weather': _0x2719(0x12a),
+            'suaraMusik': '',
+            'scene1Input': '',
+            'scene2Input': '',
+            'sceneManual': '',
+            'kalimatDiucapkan': '',
+            'detailTambahan': '',
+            'visualStyle': 'cinematic',
+            'duration': 0xa,
+            'aspectRatio': '16:9',
+            'frameRate': '24',
+            'cameraMovement': _0x2719(0x120),
+            'cameraAngle': 'eye-level',
+            'lensType': _0x2719(0x11b),
+            'depthOfField': _0x2719(0x132),
+            'filmGrain': 0x14,
+            'chromaticAberration': 0xa,
+            'colorGrading': _0x2719(0x123),
+            'dynamicRange': 'standard',
+            'moodTags': [],
+            'suasanaVideoManual': '',
+            'videoEngine': _0x2719(0x138),
+            'seed': -0x1,
+            'consistency': 0x4b,
+            'motionIntensity': 0x32,
+            'effects': {
+                'motion-blur': !![],
+                'lens-flare': ![],
+                'light-leaks': ![],
+                'film-scratches': ![],
+                'vignette': ![],
+                'vhs-glitch': ![],
+                'datamosh': ![],
+                'scanlines': ![],
+                'pixel-sorting': ![],
+                'double-exposure': ![],
+                'montage': ![],
+                'time-remapping': ![],
+                'texture-overlay': ![],
+                'split-screen': ![],
+                'reverse-motion': ![],
+                'time-freeze': ![],
+                'parallax': ![],
+                'j-cut': ![],
+                'l-cut': ![],
+                'match-cut': ![],
+                'contrast-cut': ![]
+            }
+        };
+        document['addEventListener'](_0x2719(0x160), () => {
+            const _0x599bb9 = _0x2719;
+            let _0x4c21de = ![];
+            document['body'][_0x599bb9(0x147)](_0x599bb9(0x10c), () => {
+                !_0x4c21de && (openRandomAd(adLinks), _0x4c21de = !![]);
+            }, {
+                'once': !![]
+            });
+            const _0x1391a8 = {
+                    'imageAnalysisContainer': document[_0x599bb9(0x17c)](_0x599bb9(0x145)),
+                    'manualSectionsContainer': document[_0x599bb9(0x17c)]('manual-sections-container'),
+                    'generateFinalPromptBtn': document[_0x599bb9(0x17c)](_0x599bb9(0x15f)),
+                    'errorContainer': document[_0x599bb9(0x17c)](_0x599bb9(0x10e)),
+                    'errorMessage': document[_0x599bb9(0x17c)](_0x599bb9(0x14e)),
+                    'finalPromptContainer': document[_0x599bb9(0x17c)](_0x599bb9(0x126)),
+                    'finalPromptOutput': document['getElementById'](_0x599bb9(0x15e)),
+                    'copyFinalPromptBtn': document[_0x599bb9(0x17c)](_0x599bb9(0x100))
+                },
+                _0x1e2714 = (_0x4d5671, _0x3c6411, _0x1b009e, _0x232014, _0x3b891a = ![]) => {
+                    const _0x242e47 = _0x599bb9,
+                        _0x539c23 = document['createElement']('div');
+                    _0x539c23['innerHTML'] = '<div class=\"section-toggle\x20' + (_0x3b891a ? 'open' : '') + '\"\x20id=\"' + _0x4d5671 + 'Toggle\">\x20<h3><i\x20class=\"fas\x20' + _0x1b009e + '\x20mr-2\"></i>\x20' + _0x3c6411 + '</h3>\x20<i\x20class=\"fas\x20fa-chevron-down\"></i>\x20</div>\x20<div\x20class=\"section-content\x20' + (_0x3b891a ? '' : 'hidden') + '\"\x20id=\"' + _0x4d5671 + 'Content\"></div>', _0x232014[_0x242e47(0x16b)](_0x539c23);
+                    const _0x33443a = _0x539c23[_0x242e47(0x157)]('#' + _0x4d5671 + 'Toggle'),
+                        _0x1f1484 = _0x539c23[_0x242e47(0x157)]('#' + _0x4d5671 + 'Content');
+                    return _0x33443a['addEventListener'](_0x242e47(0x10c), () => {
+                        const _0x169094 = _0x242e47;
+                        _0x33443a['classList']['toggle']('open'), _0x1f1484['classList'][_0x169094(0x140)]('hidden');
+                    }), _0x1f1484;
+                },
+                _0x14e5a3 = (_0x1a843e, _0x5b3236, _0x386927, _0x59d7d1 = {}) => {
+                    const _0x1991d1 = _0x599bb9,
+                        {
+                            placeholder: _0x26558e = '',
+                            type: _0x4c7590 = 'text',
+                            min: _0x170b65,
+                            max: _0x54d7f5
+                        } = _0x59d7d1,
+                        _0x5a1de8 = document['createElement']('div');
+                    _0x5a1de8['className'] = 'mb-4', _0x5a1de8['innerHTML'] = '<label\x20for=\"' + _0x1a843e + '\"\x20class=\"block\x20text-gray-700\x20text-sm\x20font-bold\x20mb-2\">' + _0x5b3236 + ':</label><input\x20type=\"' + _0x4c7590 + '\"\x20id=\"' + _0x1a843e + '\"\x20min=\"' + _0x170b65 + '\"\x20max=\"' + _0x54d7f5 + '\"\x20placeholder=\"' + _0x26558e + '\"\x20class=\"shadow\x20appearance-none\x20border\x20rounded\x20w-full\x20py-2\x20px-3\x20text-gray-700\x20leading-tight\x20focus:outline-none\x20focus:shadow-outline\x20focus:ring-2\x20focus:ring-blue-500\">';
+                    const _0x3e18f2 = _0x5a1de8['querySelector']('input');
+                    _0x3e18f2[_0x1991d1(0x12b)] = state[_0x1a843e], _0x3e18f2['addEventListener']('input', _0x45231c => {
+                        state[_0x1a843e] = _0x45231c['target'][_0x1991d1(0x12b)];
+                    }), _0x386927['appendChild'](_0x5a1de8);
+                },
+                _0x17a61d = (_0x393848, _0x5776d8, _0x24f5a2, _0x2614b1 = {
+                    'placeholder': '',
+                    'rows': 0x4,
+                    'className': 'md:col-span-2'
+                }) => {
+                    const _0x171545 = _0x599bb9,
+                        _0x457c15 = document['createElement']('div');
+                    _0x457c15['className'] = 'mb-4\x20' + _0x2614b1['className'], _0x457c15['innerHTML'] = '<label\x20for=\"' + _0x393848 + '\"\x20class=\"block\x20text-gray-700\x20text-sm\x20font-bold\x20mb-2\">' + _0x5776d8 + ':</label><textarea\x20id=\"' + _0x393848 + '\"\x20rows=\"' + _0x2614b1['rows'] + '\"\x20placeholder=\"' + _0x2614b1[_0x171545(0x14d)] + '\"\x20class=\"shadow\x20appearance-none\x20border\x20rounded\x20w-full\x20py-2\x20px-3\x20text-gray-700\x20leading-tight\x20focus:outline-none\x20focus:shadow-outline\x20focus:ring-2\x20focus:ring-blue-500\x20h-24\x20resize-y\"></textarea>';
+                    const _0x3b5f7e = _0x457c15[_0x171545(0x157)]('textarea');
+                    _0x3b5f7e['value'] = state[_0x393848], _0x3b5f7e['addEventListener']('input', _0x5291be => {
+                        const _0x44d34b = _0x171545;
+                        state[_0x393848] = _0x5291be[_0x44d34b(0x117)][_0x44d34b(0x12b)];
+                    }), _0x24f5a2[_0x171545(0x16b)](_0x457c15);
+                },
+                _0x10f274 = (_0x42f0b4, _0x403f8f, _0x126154, _0x4d51ab, _0x112353 = {}) => {
+                    const _0x1e3e7f = _0x599bb9,
+                        {
+                            hasManual: _0x2e06c7 = ![],
+                            manualId: _0x5e2361 = '',
+                            helpText: _0x43b2cc = '',
+                            className: _0x4b4344 = ''
+                        } = _0x112353,
+                        _0x20352d = document['createElement']('div');
+                    _0x20352d['className'] = 'mb-4\x20' + _0x4b4344;
+                    let _0x409549 = _0x126154['map'](_0x42df49 => '<option\x20value=\"' + (_0x42df49[_0x1e3e7f(0x12b)] || _0x42df49) + '\">' + (_0x42df49['label'] || _0x42df49) + '</option>')[_0x1e3e7f(0x121)]('');
+                    _0x2e06c7 && (_0x409549 += _0x1e3e7f(0x11a));
+                    const _0x40c31e = _0x20352d[_0x1e3e7f(0x157)]('select');
+                    _0x20352d[_0x1e3e7f(0x169)] = '<label\x20for=\"' + _0x42f0b4 + '\"\x20class=\"block\x20text-gray-700\x20text-sm\x20font-bold\x20mb-2\">' + _0x403f8f + ':</label><select\x20id=\"' + _0x42f0b4 + '\"\x20class=\"shadow\x20appearance-none\x20border\x20rounded\x20w-full\x20py-2\x20px-3\x20text-gray-700\x20leading-tight\x20focus:outline-none\x20focus:shadow-outline\x20focus:ring-2\x20focus:ring-blue-500\">' + _0x409549 + '</select>' + (_0x2e06c7 ? '<input\x20type=\"text\"\x20id=\"' + _0x5e2361 + '\"\x20class=\"hidden\x20mt-2\x20shadow\x20appearance-none\x20border\x20rounded\x20w-full\x20py-2\x20px-3\x20text-gray-700\x20leading-tight\x20focus:outline-none\x20focus:shadow-outline\x20focus:ring-2\x20focus:ring-blue-500\"\x20placeholder=\"Masukkan\x20' + _0x403f8f[_0x1e3e7f(0x141)]() + '\x20secara\x20manual\">' : '') + (_0x43b2cc ? '<p\x20class=\"text-xs\x20text-gray-500\x20mt-1\">' + _0x43b2cc + '</p>' : ''), _0x40c31e['value'] = state[_0x42f0b4], _0x40c31e['addEventListener']('change', _0x43a851 => {
+                        const _0x4246ab = _0x1e3e7f;
+                        state[_0x42f0b4] = _0x43a851[_0x4246ab(0x117)][_0x4246ab(0x12b)], _0x2e06c7 && (document[_0x4246ab(0x17c)](_0x5e2361)['classList'][_0x4246ab(0x140)](_0x4246ab(0x149), _0x43a851[_0x4246ab(0x117)][_0x4246ab(0x12b)] !== _0x4246ab(0x17b)), _0x43a851[_0x4246ab(0x117)][_0x4246ab(0x12b)] === 'Isi\x20manual' && document[_0x4246ab(0x17c)](_0x5e2361)[_0x4246ab(0x139)]());
+                    }), _0x2e06c7 && (document['getElementById'](_0x5e2361)['value'] = state[_0x5e2361], document[_0x1e3e7f(0x17c)](_0x5e2361)[_0x1e3e7f(0x147)]('input', _0x4e664b => {
+                        state[_0x5e2361] = _0x4e664b['target'][_0x1e3e7f(0x12b)];
+                    }), state[_0x42f0b4] === 'Isi\x20manual' && document[_0x1e3e7f(0x17c)](_0x5e2361)['classList']['remove'](_0x1e3e7f(0x149))), _0x4d51ab[_0x1e3e7f(0x16b)](_0x20352d);
+                },
+                _0x272c7a = (_0x4466b0, _0x51c72f, _0x10bf30, _0x452a37 = {}) => {
+                    const _0x1a7a01 = _0x599bb9,
+                        {
+                            min: _0x45a90e = 0x0,
+                            max: _0x159841 = 0x64,
+                            step: _0x3b7931 = 0x1,
+                            unit: _0x51d02c = '%'
+                        } = _0x452a37,
+                        _0x2d87e0 = document[_0x1a7a01(0x16a)]('div');
+                    _0x2d87e0[_0x1a7a01(0x155)] = 'mb-4', _0x2d87e0['innerHTML'] = '\x20<label\x20for=\"' + _0x4466b0 + '\"\x20class=\"block\x20text-gray-700\x20text-sm\x20font-bold\x20mb-2\">' + _0x51c72f + '</label>\x20<div\x20class=\"flex\x20items-center\x20gap-4\">\x20<input\x20type=\"range\"\x20id=\"' + _0x4466b0 + '\"\x20min=\"' + _0x45a90e + '\"\x20max=\"' + _0x159841 + '\"\x20step=\"' + _0x3b7931 + '\"\x20class=\"w-full\x20h-2\x20bg-gray-200\x20rounded-lg\x20appearance-none\x20cursor-pointer\">\x20<span\x20id=\"' + _0x4466b0 + '-value\"\x20class=\"text-sm\x20font-semibold\x20text-gray-700\x20w-16\x20text-center\">' + state[_0x4466b0] + _0x51d02c + '</span>\x20</div>';
+                    const _0x298492 = _0x2d87e0['querySelector']('#' + _0x4466b0),
+                        _0x4b6e51 = _0x2d87e0['querySelector']('#' + _0x4466b0 + '-value');
+                    _0x298492['value'] = state[_0x4466b0], _0x298492['addEventListener']('input', _0x4a7e93 => {
+                        const _0x16b04f = _0x1a7a01;
+                        state[_0x4466b0] = _0x4a7e93['target'][_0x16b04f(0x12b)], _0x4b6e51['textContent'] = '' + _0x4a7e93[_0x16b04f(0x117)][_0x16b04f(0x12b)] + _0x51d02c;
+                    }), _0x10bf30[_0x1a7a01(0x16b)](_0x2d87e0);
+                },
+                _0x2d2f7e = (_0x2b87f9, _0x38e555, _0x1fc3de) => {
+                    const _0x4323c2 = _0x599bb9,
+                        _0x37a541 = document[_0x4323c2(0x16a)]('div');
+                    _0x37a541['className'] = 'mb-4';
+                    let _0x3b9055 = _0x38e555['map'](_0x1e7807 => '\x20<div\x20class=\"flex\x20items-center\">\x20<input\x20type=\"checkbox\"\x20id=\"' + _0x1e7807['id'] + '\"\x20data-key=\"' + _0x1e7807['id'] + '\"\x20class=\"h-4\x20w-4\x20text-indigo-600\x20border-gray-300\x20rounded\x20focus:ring-indigo-500\">\x20<label\x20for=\"' + _0x1e7807['id'] + '\"\x20class=\"ml-2\x20block\x20text-sm\x20text-gray-900\">' + _0x1e7807[_0x4323c2(0x171)] + '</label>\x20</div>\x20')[_0x4323c2(0x121)]('');
+                    _0x37a541['innerHTML'] = '\x20<h4\x20class=\"font-semibold\x20text-md\x20mb-2\">' + _0x2b87f9 + '</h4>\x20<div\x20class=\"grid\x20grid-cols-2\x20sm:grid-cols-3\x20gap-2\">' + _0x3b9055 + '</div>\x20', _0x37a541[_0x4323c2(0x10f)]('input[type=\"checkbox\"]')[_0x4323c2(0x17f)](_0x247517 => {
+                        const _0x3d07e1 = _0x4323c2,
+                            _0x4da991 = _0x247517['dataset']['key'];
+                        _0x247517[_0x3d07e1(0x134)] = state['effects'][_0x4da991], _0x247517[_0x3d07e1(0x147)](_0x3d07e1(0x176), _0x3b421a => {
+                            state['effects'][_0x4da991] = _0x3b421a['target'][_0x3d07e1(0x134)];
+                        });
+                    }), _0x1fc3de[_0x4323c2(0x16b)](_0x37a541);
+                },
+                _0x546e01 = (_0x487920, _0x27f508, _0x391216) => {
+                    const _0x24a40f = _0x599bb9,
+                        _0x4b149b = document['createElement']('div');
+                    _0x4b149b[_0x24a40f(0x155)] = 'mb-4', _0x4b149b[_0x24a40f(0x169)] = '\x20<label\x20class=\"block\x20text-gray-700\x20text-sm\x20font-bold\x20mb-2\">' + _0x27f508 + '</label>\x20<div\x20id=\"' + _0x487920 + '-container\"\x20class=\"flex\x20flex-wrap\x20gap-2\x20mb-2\x20p-2\x20border\x20rounded-lg\x20min-h-[40px]\"></div>\x20<div\x20class=\"flex\x20gap-2\">\x20<input\x20type=\"text\"\x20id=\"' + _0x487920 + '-input\"\x20class=\"shadow\x20appearance-none\x20border\x20rounded\x20w-full\x20py-2\x20px-3\x20text-gray-700\x20leading-tight\x20focus:outline-none\x20focus:shadow-outline\"\x20placeholder=\"Add\x20tag\x20and\x20press\x20Enter...\">\x20<button\x20id=\"' + _0x487920 + '-add-btn\"\x20type=\"button\"\x20class=\"bg-blue-500\x20hover:bg-blue-700\x20text-white\x20font-bold\x20py-2\x20px-4\x20rounded\">Add</button>\x20</div>', _0x391216[_0x24a40f(0x16b)](_0x4b149b);
+                    const _0x5608da = _0x4b149b[_0x24a40f(0x157)]('#' + _0x487920 + '-container'),
+                        _0x2a98f7 = _0x4b149b[_0x24a40f(0x157)]('#' + _0x487920 + '-input'),
+                        _0x334468 = _0x4b149b['querySelector']('#' + _0x487920 + '-add-btn');
+
+                    function _0x446e01() {
+                        const _0x1c210b = _0x24a40f;
+                        _0x5608da[_0x1c210b(0x169)] = '', state[_0x1c210b(0x175)][_0x1c210b(0x17f)]((_0x5a11c1, _0x338f0c) => {
+                            const _0x303562 = _0x1c210b,
+                                _0x3f1595 = document['createElement']('span');
+                            _0x3f1595[_0x303562(0x155)] = _0x303562(0x103), _0x3f1595['innerHTML'] = '' + _0x5a11c1 + '\x20<button\x20data-index=\"' + _0x338f0c + '\"\x20class=\"text-blue-800\x20hover:text-blue-900\">&times;</button>', _0x3f1595[_0x303562(0x157)]('button')[_0x303562(0x147)](_0x303562(0x10c), _0x1e36c2 => {
+                                const _0x1da254 = _0x303562;
+                                state[_0x1da254(0x175)]['splice'](_0x338f0c, 0x1), _0x446e01();
+                            }), _0x5608da[_0x303562(0x16b)](_0x3f1595);
+                        });
+                    }
+
+                    function _0x2e8f17() {
+                        const _0x38e539 = _0x24a40f,
+                            _0x14e5b9 = _0x2a98f7[_0x38e539(0x12b)][_0x38e539(0x143)]();
+                        _0x14e5b9 && !state[_0x38e539(0x175)][_0x38e539(0x17a)](_0x14e5b9) && (state['moodTags']['push'](_0x14e5b9), _0x2a98f7[_0x38e539(0x12b)] = '', _0x446e01());
+                    }
+                    _0x334468[_0x24a40f(0x147)](_0x24a40f(0x10c), _0x2e8f17), _0x2a98f7['addEventListener']('keyup', _0x4d5d36 => {
+                        const _0x23a22f = _0x24a40f;
+                        _0x4d5d36['key'] === _0x23a22f(0x164) && (_0x4d5d36[_0x23a22f(0x136)](), _0x2e8f17());
+                    }), _0x446e01();
+                },
+                _0x546c7f = _0x5b8a01 => {
+                    const _0x39a3f5 = _0x599bb9,
+                        _0x23d606 = _0x5b8a01['target'][_0x39a3f5(0x114)][0x0];
+                    if (_0x23d606 && _0x23d606['type']['startsWith']('image/')) {
+                        document[_0x39a3f5(0x17c)]('analysis-error')['textContent'] = '';
+                        const _0x315694 = new FileReader();
+                        _0x315694['onloadend'] = () => {
+                            const _0x29841f = _0x39a3f5;
+                            state['imageBase64'] = _0x315694['result'], document[_0x29841f(0x17c)](_0x29841f(0x110))['src'] = state['imageBase64'], document['getElementById'](_0x29841f(0x110))['classList']['remove'](_0x29841f(0x149)), document[_0x29841f(0x17c)]('image-placeholder')['classList']['add'](_0x29841f(0x149));
+                        }, _0x315694['readAsDataURL'](_0x23d606);
+                    } else {
+                        const _0x2f3922 = _0x39a3f5;
+                        state['imageBase64'] = '', document[_0x2f3922(0x17c)](_0x2f3922(0x110))[_0x2f3922(0x153)][_0x2f3922(0x106)](_0x2f3922(0x149)), document['getElementById']('image-placeholder')[_0x2f3922(0x153)]['remove'](_0x2f3922(0x149)), document[_0x2f3922(0x17c)](_0x2f3922(0x109))['textContent'] = _0x2f3922(0x165);
+                    }
+                    document[_0x599bb9(0x17c)](_0x599bb9(0x113))['classList'][_0x599bb9(0x106)](_0x599bb9(0x149));
+                },
+                _0x2b3f11 = () => {
+                    const _0x1c34a2 = _0x599bb9;
+                    document['getElementById']('image-input')[_0x1c34a2(0x147)](_0x1c34a2(0x176), _0x546c7f), document['getElementById'](_0x1c34a2(0x129))[_0x1c34a2(0x147)](_0x1c34a2(0x10c), _0x2c009d);
+                },
+                _0x1993fe = () => {
+                    const _0x546e96 = _0x599bb9;
+                    _0x1391a8['manualSectionsContainer'][_0x546e96(0x169)] = '', _0x1391a8['imageAnalysisContainer'][_0x546e96(0x169)] = _0x546e96(0x159);
+                    const _0x4f128c = _0x1e2714('character', _0x546e96(0x115), _0x546e96(0x14b), _0x1391a8['manualSectionsContainer'], !![]),
+                        _0x4464c5 = document['createElement']('div');
+                    _0x4464c5['className'] = 'grid\x20grid-cols-1\x20md:grid-cols-2\x20gap-x-8\x20gap-y-4', _0x4f128c[_0x546e96(0x16b)](_0x4464c5), _0x14e5a3('subjek', 'Subjek', _0x4464c5), _0x14e5a3(_0x546e96(0x12f), 'Nama', _0x4464c5), _0x14e5a3('usia', _0x546e96(0x12e), _0x4464c5), _0x10f274('bentukTubuh', 'Bentuk\x20tubuh', [_0x546e96(0x13c), _0x546e96(0x16c), 'Ramping', 'Berotot', _0x546e96(0x166)], _0x4464c5, {
+                        'hasManual': !![],
+                        'manualId': _0x546e96(0x10b)
+                    }), _0x10f274(_0x546e96(0x156), _0x546e96(0x14f), ['Wajah\x20oval,\x20rambut\x20panjang\x20bergelombang,\x20hidung\x20mancung', _0x546e96(0x11f)], _0x4464c5, {
+                        'hasManual': !![],
+                        'manualId': _0x546e96(0x130)
+                    }), _0x10f274('pakaian', 'Pakaian', [_0x546e96(0x101), _0x546e96(0x108), 'Sporty\x20(pakaian\x20olahraga)', 'Tradisional\x20(kebaya,\x20batik)', _0x546e96(0x168)], _0x4464c5, {
+                        'hasManual': !![],
+                        'manualId': _0x546e96(0x15c)
+                    }), _0x10f274('warnaPakaian', _0x546e96(0x170), [_0x546e96(0x14c), 'Biru', _0x546e96(0x16f), 'Hitam', 'Putih'], _0x4464c5, {
+                        'hasManual': !![],
+                        'manualId': _0x546e96(0x102)
+                    }), _0x10f274(_0x546e96(0x13b), 'Aksesoris', [_0x546e96(0x13b), 'Topi', _0x546e96(0x135), 'Tas', 'Syal'], _0x4464c5, {
+                        'hasManual': !![],
+                        'manualId': 'aksesorisManual'
+                    }), _0x10f274(_0x546e96(0x162), _0x546e96(0x154), ['Asia', 'Kaukasia', 'Afrika', _0x546e96(0x11e), 'Timur\x20Tengah'], _0x4464c5, {
+                        'hasManual': !![],
+                        'manualId': 'rasEtnisManual'
+                    }), _0x14e5a3(_0x546e96(0x17d), 'Ekspresi', _0x4464c5), _0x14e5a3('tempat', 'Tempat', _0x4464c5);
+                    const _0x5b331f = _0x1e2714(_0x546e96(0x104), 'Struktur\x20Adegan\x20&\x20Dialog', _0x546e96(0x151), _0x1391a8[_0x546e96(0x17e)]);
+                    _0x17a61d(_0x546e96(0x137), 'Scene\x201', _0x5b331f, {
+                        'className': _0x546e96(0x146)
+                    }), _0x17a61d('scene2Input', _0x546e96(0x14a), _0x5b331f, {
+                        'className': 'md:col-span-1'
+                    }), _0x14e5a3('kalimatDiucapkan', 'Kalimat\x20yang\x20diucapkan', _0x5b331f, {
+                        'className': 'md:col-span-2'
+                    }), _0x14e5a3(_0x546e96(0x124), 'Musik/Suara', _0x5b331f, {
+                        'className': 'md:col-span-2'
+                    });
+                    const _0x3e1761 = _0x1e2714('basic', _0x546e96(0x172), 'fa-sliders-h', _0x1391a8[_0x546e96(0x17e)]),
+                        _0x231d87 = document['createElement']('div');
+                    _0x231d87['className'] = _0x546e96(0x158), _0x3e1761['appendChild'](_0x231d87), _0x10f274(_0x546e96(0x12c), 'Visual\x20Style', [{
+                        'value': _0x546e96(0x131),
+                        'label': _0x546e96(0x16d)
+                    }, {
+                        'value': 'anime',
+                        'label': 'Anime'
+                    }, {
+                        'value': 'realistic',
+                        'label': 'Photorealistic'
+                    }, {
+                        'value': _0x546e96(0x127),
+                        'label': 'Watercolor'
+                    }, {
+                        'value': 'pixel-art',
+                        'label': _0x546e96(0x16e)
+                    }, {
+                        'value': 'cyberpunk',
+                        'label': _0x546e96(0x107)
+                    }, {
+                        'value': 'retro',
+                        'label': 'Retro'
+                    }, {
+                        'value': 'futuristic',
+                        'label': 'Futuristic'
+                    }], _0x231d87), _0x14e5a3(_0x546e96(0x15d), 'Duration\x20(sec)', _0x231d87, {
+                        'type': _0x546e96(0x178),
+                        'min': 0x1,
+                        'max': 0x78
+                    }), _0x10f274(_0x546e96(0x152), _0x546e96(0x148), [{
+                        'value': '16:9',
+                        'label': '16:9\x20(Widescreen)'
+                    }, {
+                        'value': '9:16',
+                        'label': _0x546e96(0x174)
+                    }, {
+                        'value': '1:1',
+                        'label': '1:1\x20(Square)'
+                    }, {
+                        'value': '4:3',
+                        'label': _0x546e96(0x163)
+                    }, {
+                        'value': '21:9',
+                        'label': _0x546e96(0x119)
+                    }], _0x231d87), _0x10f274('frameRate', _0x546e96(0x13f), [{
+                        'value': '24',
+                        'label': _0x546e96(0x105)
+                    }, {
+                        'value': '30',
+                        'label': _0x546e96(0x128)
+                    }, {
+                        'value': '60',
+                        'label': _0x546e96(0x173)
+                    }, {
+                        'value': '120',
+                        'label': '120\x20fps\x20(Slow\x20Motion)'
+                    }], _0x231d87);
+                    const _0x41f3d8 = _0x1e2714(_0x546e96(0x11d), 'Cinematography', _0x546e96(0x13d), _0x1391a8['manualSectionsContainer']),
+                        _0x20f26e = document['createElement']('div');
+                    _0x20f26e[_0x546e96(0x155)] = _0x546e96(0x158), _0x41f3d8['appendChild'](_0x20f26e), _0x10f274(_0x546e96(0x15b), 'Camera\x20Movement', [{
+                        'value': _0x546e96(0x120),
+                        'label': 'Static'
+                    }, {
+                        'value': _0x546e96(0x112),
+                        'label': 'Slow\x20Pan'
+                    }, {
+                        'value': 'dolly',
+                        'label': 'Dolly'
+                    }, {
+                        'value': 'tracking',
+                        'label': 'Tracking'
+                    }, {
+                        'value': 'crane',
+                        'label': 'Crane'
+                    }, {
+                        'value': _0x546e96(0x116),
+                        'label': 'Steadycam'
+                    }, {
+                        'value': 'handheld',
+                        'label': 'Handheld'
+                    }, {
+                        'value': 'drone',
+                        'label': _0x546e96(0x144)
+                    }], _0x20f26e), _0x10f274('cameraAngle', _0x546e96(0x167), [{
+                        'value': _0x546e96(0x12d),
+                        'label': 'Eye\x20Level'
+                    }, {
+                        'value': _0x546e96(0x179),
+                        'label': 'Low\x20Angle'
+                    }, {
+                        'value': _0x546e96(0x177),
+                        'label': 'High\x20Angle'
+                    }, {
+                        'value': 'dutch-angle',
+                        'label': _0x546e96(0x142)
+                    }, {
+                        'value': _0x546e96(0x13e),
+                        'label': 'Overhead'
+                    }, {
+                        'value': 'point-of-view',
+                        'label': 'Point\x20of\x20View'
+                    }], _0x20f26e), _0x10f274('lensType', 'Lens\x20Type', [{
+                        'value': _0x546e96(0x11b),
+                        'label': 'Standard\x20(50mm)'
+                    }, {
+                        'value': _0x546e96(0x10a),
+                        'label': 'Wide\x20Angle\x20(24mm)'
+                    }, {
+                        'value': _0x546e96(0x123),
+                        'label': 'Telephoto\x20(85mm+)'
+                    }, {
+                        'value': 'fisheye',
+                        'label': 'Fisheye'
+                    }, {
+                        'value': _0x546e96(0x132),
+                        'label': 'Anamorphic'
+                    }, {
+                        'value': 'macro',
+                        'label': 'Macro'
+                    }], _0x20f26e), _0x10f274('depthOfField', _0x546e96(0x16d), ['shallow', 'medium', 'deep'], _0x20f26e);
+                    const _0x50774a = _0x1e2714(_0x546e96(0x15a), 'Mood\x20&\x20Atmosphere', 'fa-cloud-sun', _0x1391a8[_0x546e96(0x17e)]),
+                        _0x2d174e = document['createElement']('div');
+                    _0x2d174e[_0x546e96(0x155)] = _0x546e96(0x158), _0x50774a['appendChild'](_0x2d174e), _0x10f274('waktu', 'Time\x20of\x20Day', [{
+                        'value': 'golden-hour',
+                        'label': 'Golden\x20Hour'
+                    }, {
+                        'value': 'blue-hour',
+                        'label': _0x546e96(0x118)
+                    }, {
+                        'value': 'midday',
+                        'label': 'Midday'
+                    }, {
+                        'value': 'night',
+                        'label': 'Night'
+                    }, {
+                        'value': 'sunrise',
+                        'label': _0x546e96(0x10c)
+                    }, {
+                        'value': 'sunset',
+                        'label': _0x546e96(0x157)
+                    }, {
+                        'value': 'twilight',
+                        'label': 'Twilight'
+                    }], _0x2d174e), _0x10f274(_0x546e96(0x12a), 'Weather', [_0x546e96(0x12a), 'cloudy', 'rainy', 'foggy', _0x546e96(0x14d), 'stormy'], _0x2d174e), _0x546e01('mood-tags', 'Mood\x20Tags', _0x50774a), _0x14e5a3('suasanaVideoManual', 'Mood\x20Description', _0x50774a, {
+                        'className': _0x546e96(0x146)
+                    });
+                    const _0x4c8784 = _0x1e2714('effects', _0x546e96(0x120), 'fa-magic', _0x1391a8['manualSectionsContainer']),
+                        _0x3ed842 = document[_0x546e96(0x16a)]('div');
+                    _0x3ed842['className'] = _0x546e96(0x158), _0x4c8784[_0x546e96(0x16b)](_0x3ed842), _0x272c7a(_0x546e96(0x131), 'Film\x20Grain', _0x3ed842), _0x272c7a('chromaticAberration', _0x546e96(0x112), _0x3ed842), _0x10f274(_0x546e96(0x116), _0x546e96(0x144), ['neutral', 'teal-orange', 'cool', 'warm', 'high-contrast', 'monochrome', _0x546e96(0x142)], _0x3ed842), _0x10f274(_0x546e96(0x13e), _0x546e96(0x179), [{
+                        'value': 'standard',
+                        'label': _0x546e96(0x11b)
+                    }, {
+                        'value': 'high',
+                        'label': 'High\x20(HDR)'
+                    }, {
+                        'value': 'log',
+                        'label': 'Log\x20(Flat\x20Profile)'
+                    }], _0x3ed842);
+                    const _0x14cc0f = document['createElement']('div');
+                    _0x14cc0f['className'] = 'md:col-span-2\x20mt-4', _0x4c8784[_0x546e96(0x16b)](_0x14cc0f), _0x2d2f7e('Basic\x20Effects', [{
+                        'id': 'motion-blur',
+                        'label': _0x546e96(0x13d)
+                    }, {
+                        'id': 'lens-flare',
+                        'label': 'Lens\x20Flare'
+                    }, {
+                        'id': _0x546e96(0x177),
+                        'label': 'Light\x20Leaks'
+                    }, {
+                        'id': _0x546e96(0x12d),
+                        'label': 'Film\x20Scratches'
+                    }, {
+                        'id': 'vignette',
+                        'label': 'Vignette'
+                    }], _0x14cc0f);
+                    const _0x53d168 = _0x1e2714('advanced', 'Advanced\x20Settings', 'fa-cogs', _0x1391a8[_0x546e96(0x17e)]),
+                        _0x3f1f47 = document[_0x546e96(0x16a)]('div');
+                    _0x3f1f47['className'] = 'grid\x20grid-cols-1\x20md:grid-cols-2\x20gap-x-8\x20gap-y-4', _0x53d168[_0x546e96(0x16b)](_0x3f1f47), _0x10f274(_0x546e96(0x138), _0x546e96(0x17a), [{
+                        'value': 'stable-video-diffusion',
+                        'label': 'Stable\x20Video\x20Diffusion'
+                    }, {
+                        'value': 'animatediff',
+                        'label': 'AnimateDiff'
+                    }, {
+                        'value': 'sora',
+                        'label': 'Sora\x20(AI)'
+                    }, {
+                        'value': 'pika',
+                        'label': 'Pika\x20Labs'
+                    }, {
+                        'value': 'runway',
+                        'label': 'Runway\x20ML'
+                    }, {
+                        'value': _0x546e96(0x138),
+                        'label': 'Veo3\x20(Google)'
+                    }, {
+                        'value': _0x546e96(0x150),
+                        'label': 'Veo2\x20(Google)'
+                    }, {
+                        'value': _0x546e96(0x122),
+                        'label': 'Tensor\x20Video'
+                    }], _0x3f1f47), _0x14e5a3('seed', 'Seed\x20Value', _0x3f1f47, {
+                        'type': _0x546e96(0x178),
+                        'min': -0x1,
+                        'placeholder': '-1\x20for\x20random'
+                    }), _0x272c7a('consistency', 'Frame\x20Consistency', _0x3f1f47), _0x272c7a(_0x546e96(0x10d), 'Motion\x20Intensity', _0x3f1f47), _0x2b3f11();
+                },
+                _0x2c009d = async () => {
+                    const _0x228784 = _0x599bb9;
+                    openRandomAd(adLinks);
+                    if (!state[_0x228784(0x143)]) {
+                        document['getElementById'](_0x228784(0x109))['textContent'] = 'Silakan\x20unggah\x20gambar\x20terlebih\x20dahulu.';
+                        return;
+                    }
+                    const _0x5d9b5b = document['getElementById'](_0x228784(0x129));
+                    _0x1993fe(_0x5d9b5b, !![], 'Menganalisis...', _0x228784(0x169)), document[_0x228784(0x17c)]('analysis-error')['textContent'] = '', _0x228e93(), document[_0x228784(0x17c)](_0x228784(0x113))[_0x228784(0x153)][_0x228784(0x106)](_0x228784(0x149));
+                    try {
+                        const _0x1f6692 = state['imageBase64']['split'](',')[0x1],
+                            _0x242e88 = state['imageBase64'][_0x228784(0x124)](';')[0x0]['split'](':')[0x1],
+                            _0x452586 = 'Analyze\x20this\x20image\x20in\x20detail\x20as\x20a\x20professional\x20cinematographer.\x20Extract\x20or\x20infer\x20the\x20following\x20attributes\x20and\x20return\x20them\x20as\x20a\x20valid\x20JSON\x20object.\x0a-\x20subjek:\x20A\x20detailed\x20description\x20of\x20the\x20main\x20subject.\x0a-\x20rasEtnis:\x20The\x20race\x20or\x20ethnicity\x20of\x20the\x20person\x20(e.g.,\x20\x27Asia\x27,\x20\x27Kaukasia\x27).\x0a-\x20ekspresi:\x20The\x20facial\x20expression\x20of\x20the\x20subject.\x0a-\x20pakaian:\x20Description\x20of\x20the\x20clothing.\x0a-\x20aksesoris:\x20Description\x20of\x20accessories.\x0a-\x20tempat:\x20The\x20setting\x20or\x20location.\x0a-\x20suasanaVideoManual:\x20A\x20short\x20phrase\x20describing\x20the\x20overall\x20mood\x20(e.g.,\x20\x27Misterius\x20dan\x20menegangkan\x27,\x20\x27Ceria\x20dan\x20penuh\x20semangat\x27).\x0a-\x20visualStyle:\x20Suggest\x20a\x20visual\x20style\x20from\x20this\x20list:\x20\x27cinematic\x27,\x20\x27anime\x27,\x20\x27realistic\x27,\x20\x27watercolor\x27,\x20\x27pixel-art\x27,\x20\x27cyberpunk\x27,\x20\x27retro\x27,\x20\x27futuristic\x27.\x0a-\x20cameraAngle:\x20Suggest\x20a\x20camera\x20angle\x20from:\x20\x27eye-level\x27,\x20\x27low-angle\x27,\x20\x27high-angle\x27,\x20\x27dutch-angle\x27,\x20\x27overhead\x27,\x20\x27point-of-view\x27.\x0a-\x20lensType:\x20Suggest\x20a\x20lens\x20type\x20from:\x20\x27standard\x27,\x20\x27wide-angle\x27,\x20\x27telephoto\x27,\x20\x27fisheye\x27,\x20\x27anamorphic\x27,\x20\x27macro\x27.\x0a-\x20depthOfField:\x20Suggest\x20a\x20depth\x20of\x20field\x20from:\x20\x27shallow\x27,\x20\x27medium\x27,\x20\x27deep\x27.\x0a-\x20waktu:\x20Infer\x20the\x20time\x20of\x20day\x20from:\x20\x27golden-hour\x27,\x20\x27blue-hour\x27,\x20\x27midday\x27,\x20\x27night\x27,\x20\x27sunrise\x27,\x20\x27sunset\x27,\x20\x27twilight\x27.\x0a-\x20weather:\x20Infer\x20the\x20weather\x20from:\x20\x27clear\x27,\x20\x27cloudy\x27,\x20\x27rainy\x27,\x20\x27foggy\x27,\x20\x27snowy\x27,\x20\x27stormy\x27.\x0a-\x20colorGrading:\x20Suggest\x20a\x20color\x20grading\x20style\x20from:\x20\x27neutral\x27,\x20\x27teal-orange\x27,\x20\x27cool\x27,\x20\x27warm\x27,\x20\x27high-contrast\x27,\x20\x27monochrome\x27,\x20\x27vintage\x27.\x0a-\x20moodTags:\x20Provide\x20an\x20array\x20of\x203-5\x20relevant\x20mood\x20tags\x20as\x20strings\x20(e.g.,\x20[\x22dreamy\x22,\x20\x22nostalgic\x22,\x20\x22serene\x22]).\x0a-\x20scene1Input:\x20A\x20concise\x20description\x20for\x20a\x20potential\x20first\x20scene\x20based\x20on\x20the\x20image.\x0a-\x20scene2Input:\x20A\x20concise\x20description\x20for\x20a\x20potential\x20second\x20scene\x20that\x20follows\x20the\x20first.',
+                            _0x334493 = {
+                                'contents': [{
+                                    'role': 'user',
+                                    'parts': [{
+                                        'text': _0x452586
+                                    }, {
+                                        'inlineData': {
+                                            'mimeType': _0x242e88,
+                                            'data': _0x1f6692
+                                        }
+                                    }]
+                                }],
+                                'generationConfig': {
+                                    'responseMimeType': _0x228784(0x10f)
+                                }
+                            },
+                            _0x27244a = atob(obfuscatedApiKey),
+                            _0x550a26 = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + _0x27244a,
+                            _0x1563f1 = await fetch(_0x550a26, {
+                                'method': 'POST',
+                                'headers': {
+                                    'Content-Type': _0x228784(0x10f)
+                                },
+                                'body': JSON[_0x228784(0x111)](_0x334493)
+                            }),
+                            _0x284f18 = await _0x1563f1['json']();
+                        if (!_0x1563f1['ok']) throw new Error('API\x20Error:\x20' + _0x1563f1['status'] + '\x20-\x20' + (_0x284f18['error'] ? .['message'] || JSON[_0x228784(0x111)](_0x284f18)));
+                        if (_0x284f18['candidates'] && _0x284f18[_0x228784(0x16b)][_0x228784(0x12c)] > 0x0) {
+                            const _0x53c072 = JSON['parse'](_0x284f18['candidates'][0x0][_0x228784(0x10a)]['parts'][0x0]['text']);
+                            Object['assign'](state, {
+                                'subjek': _0x53c072[_0x228784(0x123)] || state[_0x228784(0x123)],
+                                'rasEtnis': 'Isi\x20manual',
+                                'rasEtnisManual': _0x53c072['rasEtnis'] || state['rasEtnisManual'],
+                                'ekspresi': _0x53c072['ekspresi'] || state['ekspresi'],
+                                'pakaian': 'Isi\x20manual',
+                                'pakaianManual': _0x53c072[_0x228784(0x15c)] || state[_0x228784(0x15c)],
+                                'aksesoris': 'Isi\x20manual',
+                                'aksesorisManual': _0x53c072[_0x228784(0x13b)] || state[_0x228784(0x13b)],
+                                'tempat': _0x53c072['tempat'] || state[_0x228784(0x12d)],
+                                'suasanaVideoManual': _0x53c072[_0x228784(0x11b)] || state['suasanaVideoManual'],
+                                'visualStyle': _0x53c072['visualStyle'] || state[_0x228784(0x12c)],
+                                'cameraAngle': _0x53c072[_0x228784(0x167)] || state['cameraAngle'],
+                                'lensType': _0x53c072['lensType'] || state['lensType'],
+                                'depthOfField': _0x53c072[_0x228784(0x16d)] || state[_0x228784(0x16d)],
+                                'waktu': _0x53c072['waktu'] || state['waktu'],
+                                'weather': _0x53c072['weather'] || state[_0x228784(0x12a)],
+                                'colorGrading': _0x53c072[_0x228784(0x116)] || state['colorGrading'],
+                                'moodTags': _0x53c072[_0x228784(0x175)] || state['moodTags'],
+                                'scene1Input': _0x53c072['scene1Input'] || state[_0x228784(0x137)],
+                                'scene2Input': _0x53c072['scene2Input'] || state[_0x228784(0x14a)]
+                            });
+                            const _0x589574 = 'Subjek:\x20' + (_0x53c072[_0x228784(0x123)] || 'N/A') + '\nLokasi:\x20' + (_0x53c072[_0x228784(0x12d)] || 'N/A') + '\nGaya:\x20' + (_0x53c072[_0x228784(0x12c)] || 'N/A') + '\nMood:\x20' + (_0x53c072[_0x228784(0x11b)] || 'N/A');
+                            document[_0x228784(0x17c)](_0x228784(0x113))['textContent'] = _0x589574, document[_0x228784(0x17c)]('image-prompt-container')[_0x228784(0x153)][_0x228784(0x15a)](_0x228784(0x149)), _0x1993fe(), alert('Formulir\x20telah\x20berhasil\x20diisi\x20berdasarkan\x20analisis\x20gambar!');
+                        } else _0x5075f0('Gagal\x20menganalisis\x20gambar.\x20Respons\x20tidak\x20valid\x20atau\x20konten\x20diblokir.'), console['error']('Invalid\x20Response\x20Body:', _0x284f18);
+                    } catch (_0x5109b8) {
+                        _0x5075f0('Error\x20saat\x20menganalisis\x20gambar:\x20' + _0x5109b8['message']), console[_0x228784(0x109)]('Fetch\x20Error:', _0x5109b8);
+                    } finally {
+                        _0x1993fe(_0x5d9b5b, ![], 'Menganalisis...', 'fa-image\x20Analisis\x20&\x20Isi\x20Formulir');
+                    }
+                },
+                _0x156c2d = () => {
+                    const _0x45005b = _0x599bb9;
+                    openRandomAd(adLinks), _0x1993fe(_0x1391a8['generateFinalPromptBtn'], !![], _0x45005b(0x14e), _0x45005b(0x10e)), _0x228e93(), _0x573514();
+                    const _0x192e21 = (_0x4d6189, _0x3b1233) => state[_0x4d6189] === 'Isi\x20manual' ? state[_0x3b1233] : state[_0x4d6189];
+                    let _0x4c22b9 = Object['entries'](state[_0x45005b(0x120)])['filter'](([_0x16866c, _0x2665e2]) => _0x2665e2 === !![])['map'](([_0x44d18e]) => _0x44d18e['replace'](/-/g, '\x20'));
+                    let _0x27f5ef = '---\x20VISUAL\x20&\x20TECHNICAL\x20SPECS\x20---\x0a';
+                    _0x27f5ef += 'Engine:\x20' + state[_0x45005b(0x138)] + ',\x20Visual\x20Style:\x20' + state[_0x45005b(0x12c)] + ',\x20Duration:\x20' + state['duration'] + 's,\x20Aspect\x20Ratio:\x20' + state['aspectRatio'] + ',\x20Frame\x20Rate:\x20' + state['frameRate'] + 'fps,\x20Seed:\x20' + state['seed'] + '.\x0a', _0x27f5ef += 'Lens:\x20' + state[_0x45005b(0x132)] + ',\x20Depth\x20of\x20Field:\x20' + state['depthOfField'] + ',\x20Camera\x20Angle:\x20' + state[_0x45005b(0x167)] + ',\x20Camera\x20Movement:\x20' + state[_0x45005b(0x15b)] + '.\x0a', _0x27f5ef += '\x0a---\x20MOOD\x20&\x20ATMOSPHERE\x20---\x0a', _0x27f5ef += 'Time\x20of\x20Day:\x20' + state['waktu'] + ',\x20Weather:\x20' + state['weather'] + ',\x20Mood:\x20' + state['suasanaVideoManual'] + (state['moodTags']['length'] > 0x0 ? ',\x20' + state[_0x45005b(0x175)][_0x45005b(0x121)](',\x20') : '') + '.\x0a', _0x27f5ef += '\x0a---\x20VISUAL\x20EFFECTS\x20---\x0a', _0x27f5ef += 'Color\x20Grading:\x20' + state[_0x45005b(0x116)] + ',\x20Dynamic\x20Range:\x20' + state[_0x45005b(0x13e)] + ',\x20Film\x20Grain:\x20' + state['filmGrain'] + '%,\x20Chromatic\x20Aberration:\x20' + state[_0x45005b(0x112)] + '%,\x20Motion\x20Intensity:\x20' + state['motionIntensity'] + '%,\x20Consistency:\x20' + state[_0x45005b(0x10d)] + '%.\x0a', _0x4c22b9[_0x45005b(0x12c)] > 0x0 && (_0x27f5ef += 'Additional\x20Effects:\x20' + _0x4c22b9['join'](',\x20') + '.\x0a'), _0x27f5ef += '\x0a---\x20CHARACTER\x20&\x20NARRATIVE\x20---\x0a', _0x27f5ef += 'Subject:\x20' + state['subjek'] + '.\x0a', state[_0x45005b(0x12f)] && (_0x27f5ef += 'Name:\x20' + state[_0x45005b(0x12f)] + '.\x0a'), state['usia'] && (_0x27f5ef += 'Age:\x20' + state[_0x45005b(0x12e)] + '.\x0a'), _0x27f5ef += 'Appearance:\x20' + _0x192e21(_0x45005b(0x156), _0x45005b(0x130)) + ',\x20' + _0x192e21('bentukTubuh', _0x45005b(0x10b)) + '\x20body\x20shape,\x20' + _0x192e21(_0x45005b(0x162), 'rasEtnisManual') + '.\x0a', _0x27f5ef += 'Clothing:\x20' + _0x192e21(_0x45005b(0x15c), 'pakaianManual') + '\x20(' + _0x192e21('warnaPakaian', _0x45005b(0x102)) + ')\x20with\x20' + _0x192e21('aksesoris', 'aksesorisManual') + '.\x0a', state[_0x45005b(0x17d)] && (_0x27f5ef += 'Expression:\x20' + state['ekspresi'] + '.\x0a'), _0x27f5ef += '\x0a---\x20SCENE\x20DESCRIPTION\x20---\x0a', state['sceneManual'] ? _0x27f5ef += 'Scene:\x20' + state['sceneManual'] + '\x0a' : (_0x27f5ef += 'Scene\x201:\x20' + state[_0x45005b(0x137)] + '\x0a', _0x27f5ef += 'Scene\x202:\x20' + state['scene2Input'] + '\x0a'), state['kalimatDiucapkan'] && (_0x27f5ef += '\x0a---\x20DIALOGUE\x20---\x0a\"' + state[_0x45005b(0x128)] + '\"\x0a'), state['suaraMusik'] && (_0x27f5ef += '\x0a---\x20AUDIO\x20---\x0aMusic/Sound:\x20' + state['suaraMusik'] + '.\x0a'), state['detailTambahan'] && (_0x27f5ef += '\x0a---\x20ADDITIONAL\x20DETAILS\x20---\x0a' + state[_0x45005b(0x127)] + '\x0a'), _0x1174ee(_0x27f5ef[_0x45005b(0x143)]()), _0x1993fe(_0x1391a8['generateFinalPromptBtn'], ![], _0x45005b(0x105), _0x45005b(0x10e));
+                },
+                _0x177a6f = (_0x4c2a5c, _0x3f5b08) => {
+                    const _0x171221 = _0x599bb9;
+                    openRandomAd(adLinks), navigator['clipboard'][_0x171221(0x10a)](_0x4c2a5c)['then'](() => {
+                        const _0x53d100 = _0x171221;
+                        alert('' + _0x3f5b08 + _0x53d100(0x15f));
+                    })['catch'](_0x1d3a51 => {
+                        const _0x34d52f = _0x171221;
+                        alert(_0x34d52f(0x11d) + _0x3f5b08 + '.');
+                    });
+                },
+                _0x5075f0 = _0x3e18a2 => {
+                    const _0x49a9b6 = _0x599bb9;
+                    _0x1391a8[_0x49a9b6(0x14e)]['textContent'] = _0x3e18a2, _0x1391a8[_0x49a9b6(0x10e)]['classList']['remove'](_0x49a9b6(0x149));
+                },
+                _0x228e93 = () => {
+                    const _0x4c0a5b = _0x599bb9;
+                    _0x1391a8['errorContainer']['classList'][_0x4c0a5b(0x106)](_0x4c0a5b(0x149));
+                },
+                _0x573514 = () => {
+                    const _0x21ce4f = _0x599bb9;
+                    _0x1391a8[_0x21ce4f(0x126)][_0x21ce4f(0x153)][_0x21ce4f(0x106)](_0x21ce4f(0x149));
+                },
+                _0x1174ee = _0x1f0343 => {
+                    const _0x4a7e28 = _0x599bb9;
+                    _0x1391a8['finalPromptOutput'][_0x4a7e28(0x13f)] = _0x1f0343, _0x1391a8[_0x4a7e28(0x126)][_0x4a7e28(0x153)]['remove'](_0x4a7e28(0x149));
+                };
+            _0x1993fe(), _0x1391a8['generateFinalPromptBtn'][_0x599bb9(0x147)](_0x599bb9(0x10c), _0x156c2d), _0x1391a8['copyFinalPromptBtn'][_0x599bb9(0x147)](_0x599bb9(0x10c), () => {
+                const _0x34d026 = _0x599bb9;
+                _0x177a6f(_0x1391a8['finalPromptOutput'][_0x34d026(0x13f)], 'Prompt\x20Final');
+            });
+        });
+
+        function _0x5c79() {
+            const _0x506d04 = ['Wajah\x20persegi,\x20rambut\x20pendek\x20lurus,\x20hidung\x20kecil', 'static', 'join', '1961649rFAPQW', 'subjek', 'split', '512704jRyrfF', 'final-prompt-container', 'detailTambahan', 'Kalimat\x20yang\x20diucapkan', 'generate-from-image-btn', 'clear', 'value', 'visualStyle', 'eye-level', 'usia', 'nama', 'detailWajahRambutHidungManual', 'filmGrain', 'lensType', 'consistency', 'Gabungkan\x20&\x20Buat\x20Prompt\x20Final', 'application/json', 'querySelectorAll', '1183131stringify', 'chromaticAberration', 'image-prompt-output', 'files', 'Detail\x20Karakter\x20&\x20Adegan', 'colorGrading', 'target', 'blue-hour', '21:9\x20(Cinematic)', 'Isi\x20manual', 'standard', 'Daftar\x20link\x20iklan\x20kosong.', 'cinematography', 'Latin', '1188355FkCMgS', 'Gagal\x20menyalin\x20', 'length', 'id', 'textContent', 'focus', '1490235kXUyjB', 'toLowerCase', 'Dutch\x20Angle', 'imageBase64', 'drone', 'image-analysis-section', 'md:col-span-1', 'addEventListener', 'aspectRatio', 'hidden', 'scene2Input', 'fa-user-pen', 'Merah', 'placeholder', 'Sedang\x20membuat...', 'Detail\x20konsisten\x20wajah,\x20rambut,\x20hidung', 'veo2', 'fa-film', '159784ZALgVf', 'classList', 'Ras/Etnis', 'className', 'detailWajahRambutHidung', 'sunset', 'grid\x20grid-cols-1\x20md:grid-cols-2\x20gap-x-8\x20gap-y-4', '\x20<div\x20class=\"mb-10\x20p-6\x20bg-blue-50\x20border-2\x20border-dashed\x20border-blue-200\x20rounded-lg\">\x20<h2\x20class=\"text-2xl\x20font-bold\x20text-gray-700\x20mb-4\x20border-b-2\x20border-blue-300\x20pb-2\">Otomatis\x20dari\x20Gambar</h2>\x20<p\x20class=\"text-gray-600\x20mb-4\">Unggah\x20foto\x20untuk\x20mengisi\x20semua\x20pengaturan\x20secara\x20otomatis.</p>\x20<div\x20class=\"grid\x20grid-cols-1\x20md:grid-cols-2\x20gap-6\x20items-center\">\x20<div>\x20<label\x20class=\"block\x20text-gray-700\x20text-sm\x20font-bold\x20mb-2\">Pilih\x20File\x20Gambar:</label>\x20<input\x20type=\"file\"\x20id=\"image-input\"\x20accept=\"image/*\"\x20class=\"block\x20w-full\x20text-sm\x20text-gray-500\x20file:mr-4\x20file:py-2\x20file:px-4\x20file:rounded-full\x20file:border-0\x20file:text-sm\x20file:font-semibold\x20file:bg-blue-100\x20file:text-blue-700\x20hover:file:bg-blue-200\"\x20/>\x20<p\x20id=\"analysis-error\"\x20class=\"text-red-500\x20text-xs\x20mt-2\"></p>\x20<button\x20id=\"generate-from-image-btn\"\x20class=\"mt-4\x20w-full\x20bg-indigo-600\x20hover:bg-indigo-700\x20text-white\x20font-bold\x20py-2\x20px-4\x20rounded-lg\x20shadow-lg\x20transform\x20transition-all\x20duration-300\x20hover:scale-105\x20focus:outline-none\x20focus:ring-4\x20focus:ring-indigo-300\x20flex\x20items-center\x20justify-center\">\x20<i\x20class=\"fas\x20fa-image\x20mr-2\"></i>\x20Analisis\x20&\x20Isi\x20Formulir\x20</button>\x20</div>\x20<div\x20class=\"flex\x20justify-center\x20items-center\">\x20<img\x20id=\"image-preview\"\x20src=\"', 'open', 'final-prompt-output', 'generate-final-prompt-btn', 'DOMContentLoaded', 'Wajah\x20oval,\x20rambut\x20panjang\x20bergelombang,\x20hidung\x20mancung', 'rasEtnis', '4:3\x20(Classic)', 'Enter', 'Silakan\x20pilih\x20file\x20gambar\x20yang\x20valid.', 'Normal', 'cameraAngle', 'Fantasi\x20(kostum\x20pahlawan,\x20gaun\x20peri)', 'innerHTML', 'createElement', 'appendChild', 'Kurva', 'Cinematic', 'Pixel\x20Art', 'Hijau', 'Warna\x20pakaian', 'label', 'Basic\x20Settings', '60\x20fps\x20(Smooth)', '9:16\x20(Vertical)', 'moodTags', 'change', 'light-leaks', 'number', 'low-angle', 'includes', 'Isi\x20manual', 'getElementById', 'ekspresi', 'manualSectionsContainer', 'forEach', 'copy-final-prompt-btn', '8330928VbJtdD', 'warnaPakaianManual', 'bg-blue-100\x20text-blue-800\x20text-sm\x20font-medium\x20me-2\x20px-2.5\x20py-0.5\x20rounded\x20flex\x20items-center\x20gap-1', 'scene', '24\x20fps\x20(Cinematic)', 'add', 'cyberpunk', 'Formal\x20(jas,\x20gaun\x20malam)', 'error', 'writeText', 'bentukTubuhManual', 'click', 'motionIntensity', 'error-container', 'Veo3\x20(Google)', 'image-preview', 'Perhiasan\x20(kalung,\x20anting,\x20gelang)', 'preventDefault', 'scene1Input', 'videoEngine', 'slow-pan', 'pakaianManual', 'fa-camera', 'overhead', 'Kasual\x20(kaos,\x20jeans)', 'toggle', '1136430ZkPjQG', 'high-angle', '2469492jRkKkR', 'steadycam', 'fa-magic', '1337435fSeiDD', '30\x20fps\x20(Standard)', '1961448bVNqds'];
+            _0x5c79 = function() {
+                return _0x506d04;
+            };
+            return _0x5c79();
+        }
+    </script>
+</body>
+</html>
