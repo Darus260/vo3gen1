@@ -861,7 +861,7 @@
 
             function copyToClipboard(textToCopy, type) {
                 // --- IKLAN: LOGIC UNTUK KLIK TOMBOL "SALIN" ---
-                openRandomAd(adLinks);
+              //  openRandomAd(adLinks);
                 // --- AKHIR IKLAN ---
 
                 navigator.clipboard.writeText(textToCopy).then(() => {
