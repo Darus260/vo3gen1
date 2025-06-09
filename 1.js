@@ -1,5 +1,5 @@
  // --- API KEY (OBFUSCATED) ---
-        const obfuscatedApiKey = 'QUl6YVN5QXpGclVkaVUwNEMwYlJVZ1MxMWhjLWVWMkIxWEtidk5N';
+        const obfuscatedApiKey = 'QUl6YVN5QlhMUnQxRGl6bEZyUUo2OGxJUURGcmMtY2lyeDFNSFRR';
         
         // --- IKLAN: DAFTAR LINK IKLAN ANDA ---
         const adLinks = [
