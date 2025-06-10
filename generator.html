@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Generator Prompt Video AI (Veo 3) - Buat Prompt Profesional by Darus</title>
+    <meta name="description" content="Buat prompt video AI profesional untuk Google Veo 3, Sora, dan model lainnya dengan mudah. Generator prompt ini membantu Anda membuat deskripsi adegan, sinematografi, dan gaya visual secara otomatis.">
+    <meta name="keywords" content="prompt generator, veo 3 prompt, ai video prompt, prompt generator indonesia, google veo, teks ke video, prompt engineering, sora prompt">
+    <link rel="canonical" href="https://personal.web.id/generator.html" /> <!-- GANTI DENGAN URL SEBENARNYA -->
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <!-- JSON-LD Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Generator Prompt VEO3 by darus",
+      "operatingSystem": "WEB",
+      "applicationCategory": "MultimediaApplication",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "89"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "IDR"
+      },
+      "description": "Alat untuk membuat prompt video AI profesional untuk Google Veo, Sora, dan model lainnya.",
+      "author": {
+        "@type": "Person",
+        "name": "Darus"
+      }
+    }
+    </script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7094595959705079"
+     crossorigin="anonymous"></script>
+
+    <meta name="google-adsense-account" content="ca-pub-7094595959705079">
+
+    <meta name="google-site-verification" content="WDvymPCH_NK1Ajk_TGzj_GZUvfVF7MDA3j_OoG75yy8" />
+
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .section-toggle {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .section-toggle h3 {
+            font-weight: 700;
+            font-size: 1.125rem;
+        }
+        .section-toggle .fa-chevron-down {
+            transition: transform 0.3s;
+        }
+        .section-toggle.open .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        .section-content {
+            padding-top: 1rem;
+            border-left: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100">
+    
+    <!-- ### HEADER BARU ### -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold text-gray-800">
+                    <i class="fas fa-brain text-blue-500"></i>
+                    Darus AI Tools
+                </div>
+                <a href="./index.html" class="text-blue-600 hover:underline font-semibold">
+                    <i class="fas fa-home mr-1"></i>
+                    Kembali ke Beranda
+                </a>
+                <a href="./photo-prompt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Generate Prompt from Photo</a>
+                            <a href="./story-writer.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Penulis Cerita AI</a>
+                            <a href="./image-enhancer.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Peningkat Gambar</a>
+            </div>
+        </nav>
+    </header>
+    <!-- ### AKHIR HEADER BARU ### -->
+    
+    <div id="app" class="px-4 pb-4 pt-4 md:px-8 md:pb-8 md:pt-6">
+         <div class="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-2xl border border-gray-200">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2 tracking-wide">
+                GENERATOR PROMPT VEO3 by darus
+            </h1>
+            <p class="text-center text-gray-500 mb-8">Didukung oleh Google Gemini</p>
+
+            <!-- Image-based generation section -->
+            <div id="image-analysis-section"></div>
+
+            <!-- Manual input sections -->
+            <div id="manual-sections-container"></div>
+
+            <!-- Generate button -->
+            <div class="flex justify-center mt-8">
+                <button id="generate-final-prompt-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 flex items-center justify-center">
+                    <i class="fas fa-magic mr-2"></i> Gabungkan & Buat Prompt Final
+                </button>
+            </div>
+            
+            <!-- Result section -->
+            <div id="final-prompt-container" class="hidden mt-8 p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-inner">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-gray-300 pb-2">Hasil Prompt Final Anda:</h2>
+                <pre id="final-prompt-output" class="whitespace-pre-wrap font-mono text-sm text-gray-800 bg-white p-4 rounded-md border border-gray-300 overflow-auto max-h-[50vh]"></pre>
+                <div class="flex justify-center mt-4">
+                    <button id="copy-final-prompt-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300">Salin Prompt Final</button>
+                </div>
+            </div>
+
+            <!-- ### HISTATS COUNTER ### -->
+            <div class="text-center mt-8">
+                <!-- Histats.com  START  (aync)-->
+                <script type="text/javascript">var _Hasync= _Hasync|| [];
+                _Hasync.push(['Histats.start', '1,4955779,4,0,0,0,00010000']);
+                _Hasync.push(['Histats.fasi', '1']);
+                _Hasync.push(['Histats.track_hits', '']);
+                (function() {
+                var hs = document.createElement('script'); hs.type = 'text/javascript'; hs.async = true;
+                hs.src = ('//s10.histats.com/js15_as.js');
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(hs);
+                })();</script>
+                <noscript><a href="/" target="_blank"><img  src="//sstatic1.histats.com/0.gif?4955779&101" alt="" border="0"></a></noscript>
+                <!-- Histats.com  END  -->
+            </div>
+            <!-- ### END HISTATS COUNTER ### -->
+        </div>
+    </div>
+
+    <script type="text/javascript" src="1.js"></script>
+    
+</body>
+</html>

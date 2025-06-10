@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Pembuat CV Profesional - Darus AI Tools</title>
+    <meta name="description" content="Buat CV (Curriculum Vitae) profesional dalam hitungan menit dengan bantuan AI. Pilih dari berbagai template modern dan biarkan AI menyusun data Anda.">
+    
+    <!-- Tailwind CSS, Font Awesome, SweetAlert2 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- html2pdf.js for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .template-card {
+            cursor: pointer;
+            border: 2px solid #e5e7eb;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .template-card.selected {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+        }
+        /* Style untuk preview CV agar terlihat seperti kertas A4 */
+        #cv-output {
+            width: 100%;
+            aspect-ratio: 1 / 1.414; /* A4 aspect ratio */
+            max-height: 80vh;
+            overflow-y: auto;
+            word-wrap: break-word; /* Memastikan teks panjang turun */
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- ### NAVBAR ### -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold text-gray-800">
+                    <a href="./index.html" class="flex items-center">
+                        <i class="fas fa-brain text-blue-500 mr-2"></i>
+                        <span>Darus AI Tools</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="./index.html" class="text-gray-600 hover:text-blue-500 font-semibold">Beranda</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-blue-500 font-semibold">Generate Prompt for Video</a>
+                            <a href="./cv-maker.html" class="block px-4 py-2 text-sm text-blue-600 font-bold">AI Pembuat CV</a>
+                            <a href="./photo-prompt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Generate Prompt from Photo</a>
+                            <a href="./story-writer.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Penulis Cerita AI</a>
+                            <a href="./image-enhancer.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Peningkat Gambar</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 focus:outline-none"><i class="fas fa-bars text-2xl"></i></button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden mt-3">
+                <a href="./index.html" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded">Beranda</a>
+                <a href="./generator.html" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded">Generate Prompt for Video</a>
+                <a href="./cv-maker.html" class="block py-2 px-4 text-sm bg-blue-50 text-blue-600 font-bold rounded">AI Pembuat CV</a>
+                <a href="./photo-prompt.html" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded">Generate Prompt from Photo</a>
+                <a href="./story-writer.html" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded">Penulis Cerita AI</a>
+                <a href="./image-enhancer.html" class="block py-2 px-4 text-sm hover:bg-blue-50 rounded">Peningkat Gambar</a>
+            </div>
+        </nav>
+    </header>
+    <!-- ### AKHIR NAVBAR ### -->
+
+    <div id="app" class="px-4 pb-8 pt-6 md:px-8">
+         <div class="max-w-5xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-2xl border border-gray-200">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2 tracking-wide">AI Pembuat CV</h1>
+            <p class="text-center text-gray-500 mb-8">Isi data Anda, pilih template, dan biarkan AI menyusun CV profesional untuk Anda.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Kolom Input Data -->
+                <div class="space-y-6">
+                    <div>
+                        <h2 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-4">Data Pribadi</h2>
+                        <input id="fullName" type="text" placeholder="Nama Lengkap" class="w-full p-2 border rounded mb-2">
+                        <input id="email" type="email" placeholder="Alamat Email" class="w-full p-2 border rounded mb-2">
+                        <input id="phone" type="tel" placeholder="Nomor Telepon" class="w-full p-2 border rounded mb-2">
+                        <input id="linkedin" type="text" placeholder="Profil LinkedIn (URL)" class="w-full p-2 border rounded mb-2">
+                        <textarea id="summary" placeholder="Ringkasan Profesional tentang diri Anda..." class="w-full p-2 border rounded" rows="4"></textarea>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-4">Pengalaman Kerja</h2>
+                        <div id="experience-list">
+                            <div class="experience-item mb-4 p-3 border rounded">
+                                <input type="text" placeholder="Posisi" class="w-full p-2 border rounded mb-2 experience-title">
+                                <input type="text" placeholder="Nama Perusahaan & Lokasi" class="w-full p-2 border rounded mb-2 experience-company">
+                                <input type="text" placeholder="Tanggal Mulai - Tanggal Selesai" class="w-full p-2 border rounded mb-2 experience-dates">
+                                <textarea placeholder="Deskripsi pekerjaan dan pencapaian..." class="w-full p-2 border rounded experience-desc" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <button id="add-experience" class="text-sm text-blue-600 hover:underline">+ Tambah Pengalaman</button>
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-4">Pendidikan</h2>
+                        <div id="education-list">
+                            <div class="education-item mb-4 p-3 border rounded">
+                                <input type="text" placeholder="Nama Institusi/Sekolah" class="w-full p-2 border rounded mb-2 education-school">
+                                <input type="text" placeholder="Gelar/Jurusan" class="w-full p-2 border rounded mb-2 education-degree">
+                                <input type="text" placeholder="Tahun Lulus" class="w-full p-2 border rounded mb-2 education-year">
+                            </div>
+                        </div>
+                        <button id="add-education" class="text-sm text-blue-600 hover:underline">+ Tambah Pendidikan</button>
+                    </div>
+                     <div>
+                        <h2 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-4">Keterampilan</h2>
+                        <input id="skills" type="text" placeholder="Contoh: JavaScript, Photoshop, Public Speaking (pisahkan dengan koma)" class="w-full p-2 border rounded">
+                    </div>
+
+                    <div>
+                        <h2 class="text-xl font-bold border-b-2 border-gray-200 pb-2 mb-4">Pilih Template</h2>
+                        <div id="template-options" class="grid grid-cols-3 gap-4">
+                            <div class="template-card rounded-lg p-3 text-center selected" data-template="profesional">
+                                <i class="fas fa-briefcase text-2xl mb-2"></i>
+                                <p class="font-semibold">Profesional</p>
+                            </div>
+                             <div class="template-card rounded-lg p-3 text-center" data-template="modern">
+                                <i class="fas fa-bolt text-2xl mb-2"></i>
+                                <p class="font-semibold">Modern</p>
+                            </div>
+                             <div class="template-card rounded-lg p-3 text-center" data-template="kreatif">
+                                <i class="fas fa-palette text-2xl mb-2"></i>
+                                <p class="font-semibold">Kreatif</p>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="flex justify-center pt-4">
+                        <button id="generate-cv-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg flex items-center justify-center">
+                            <i class="fas fa-cogs mr-2"></i> Buat CV Sekarang
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kolom Preview CV -->
+                <div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold">Pratinjau CV</h2>
+                        <div id="download-btn-container" class="hidden">
+                            <button id="download-pdf-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg text-sm">
+                                <i class="fas fa-download mr-2"></i>Unduh PDF
+                            </button>
+                        </div>
+                    </div>
+                    <div id="cv-preview-container" class="sticky top-24 p-4 border-2 border-dashed rounded-lg min-h-[50vh] bg-gray-50 flex items-center justify-center">
+                       <div id="cv-output" class="w-full h-full bg-white shadow-lg overflow-hidden">
+                           <!-- Hasil CV akan ditampilkan di sini -->
+                           <div class="p-8 text-center text-gray-400 flex flex-col justify-center items-center h-full">
+                               <i class="fas fa-file-alt text-5xl"></i>
+                               <p class="mt-4">Pratinjau CV Anda akan muncul di sini</p>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="2.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peningkat Kualitas Gambar AI - Darus AI Tools</title>
+    <meta name="description" content="Tingkatkan resolusi dan perbaiki detail pada gambar Anda. AI akan menganalisis dan menciptakan ulang gambar Anda dalam kualitas tinggi.">
+    
+    <!-- Tailwind CSS, Font Awesome, SweetAlert2 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- ### NAVBAR ### -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold text-gray-800">
+                    <a href="./index.html" class="flex items-center">
+                        <i class="fas fa-brain text-blue-500 mr-2"></i>
+                        <span>Darus AI Tools</span>
+                    </a>
+                </div>
+                <!-- Menu untuk Desktop -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="./index.html" class="text-gray-600 hover:text-blue-500 font-semibold">Beranda</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-blue-500 font-semibold">Generator Prompt</a>
+                    <div class="relative group">
+                        <button class="text-blue-500 font-bold flex items-center">
+                            <span>Fitur Lainnya</span>
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-20 hidden group-hover:block">
+                            <a href="./story-writer.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Penulis Cerita</a>
+                            <a href="./image-enhancer.html" class="block px-4 py-2 text-sm text-blue-600 font-bold">Peningkat Gambar</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tombol Menu untuk Mobile -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Menu Mobile -->
+            <div id="mobile-menu" class="hidden md:hidden mt-3">
+                <a href="./index.html" class="block py-2 px-4 text-sm text-gray-800 hover:bg-blue-50 rounded">Beranda</a>
+                <a href="./generator.html" class="block py-2 px-4 text-sm text-gray-800 hover:bg-blue-50 rounded">Generator Prompt</a>
+                <a href="./story-writer.html" class="block py-2 px-4 text-sm text-gray-800 hover:bg-blue-50 rounded">Penulis Cerita</a>
+                <a href="./image-enhancer.html" class="block py-2 px-4 text-sm bg-blue-50 text-blue-600 font-bold rounded">Peningkat Gambar</a>
+            </div>
+        </nav>
+    </header>
+    <!-- ### AKHIR NAVBAR ### -->
+
+    <div id="app" class="px-4 pb-8 pt-6 md:px-8">
+         <div class="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-2xl border border-gray-200">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2 tracking-wide">
+                Peningkat Kualitas Gambar AI
+            </h1>
+            <p class="text-center text-gray-500 mb-8">Unggah gambar untuk dianalisis dan dibuat ulang dalam kualitas tinggi.</p>
+
+            <!-- Upload Section -->
+            <div class="max-w-xl mx-auto">
+                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                    <i class="fas fa-cloud-upload-alt text-4xl text-gray-400"></i>
+                    <p class="mt-2 text-sm text-gray-600">Seret & lepas gambar Anda, atau klik untuk memilih file.</p>
+                    <input type="file" id="image-upload" class="hidden" accept="image/*">
+                    <button id="upload-button" class="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">Pilih Gambar</button>
+                </div>
+            </div>
+
+            <!-- Image Comparison Section -->
+            <div id="image-comparison" class="hidden mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="font-bold text-center text-lg mb-2">Gambar Asli</h3>
+                    <img id="original-image" src="" alt="Gambar Asli" class="rounded-lg shadow-md w-full">
+                </div>
+                <div class="relative">
+                    <h3 class="font-bold text-center text-lg mb-2">Hasil AI</h3>
+                    <div id="enhanced-image-container" class="bg-gray-200 rounded-lg shadow-md w-full aspect-square flex items-center justify-center">
+                        <div id="enhancer-loader" class="hidden">
+                            <div class="loader"></div>
+                            <p class="text-sm text-gray-600 mt-2">Menciptakan gambar baru...</p>
+                        </div>
+                        <img id="enhanced-image" src="" alt="Hasil AI" class="rounded-lg w-full hidden">
+                    </div>
+                </div>
+            </div>
+             
+             <!-- Generate button -->
+            <div id="enhance-button-container" class="hidden flex justify-center mt-8">
+                <button id="enhance-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg">
+                    <i class="fas fa-wand-magic-sparkles mr-2"></i> Tingkatkan Kualitas Gambar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- API KEY & ADS ---
+            const obfuscatedApiKey = 'QUl6YVN5QXpGclVkaVUwNEMwYlJVZ1MxMWhjLWVWMkIxWEtidk5N';
+            const adLinks = ['https://s.shopee.co.id/4fkJj4u69U', 'https://s.shopee.co.id/4q3jvNtSoX', 'https://s.shopee.co.id/50NA7gspTa'];
+
+            function openRandomAd(links) {
+                if (!links || links.length === 0) return;
+                const randomIndex = Math.floor(Math.random() * links.length);
+                window.open(links[randomIndex], '_blank');
+            }
+
+            // --- DOM ELEMENTS ---
+            const uploadButton = document.getElementById('upload-button');
+            const imageUpload = document.getElementById('image-upload');
+            const imageComparison = document.getElementById('image-comparison');
+            const originalImage = document.getElementById('original-image');
+            const enhancerLoader = document.getElementById('enhancer-loader');
+            const enhancedImage = document.getElementById('enhanced-image');
+            const enhanceButtonContainer = document.getElementById('enhance-button-container');
+            const enhanceBtn = document.getElementById('enhance-btn');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            let originalImageData = null;
+
+            // --- EVENT LISTENERS ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            uploadButton.addEventListener('click', () => imageUpload.click());
+            imageUpload.addEventListener('change', handleImageUpload);
+            enhanceBtn.addEventListener('click', enhanceImage);
+
+            function handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (file && file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        originalImageData = reader.result; // base64
+                        originalImage.src = originalImageData;
+                        imageComparison.classList.remove('hidden');
+                        enhanceButtonContainer.classList.remove('hidden');
+                        enhancedImage.classList.add('hidden');
+                        enhancerLoader.classList.add('hidden');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            async function enhanceImage() {
+                if (!originalImageData) {
+                    Swal.fire('Tidak Ada Gambar', 'Silakan pilih gambar terlebih dahulu.', 'warning');
+                    return;
+                }
+                
+                //openRandomAd(adLinks);
+                enhancerLoader.classList.remove('hidden');
+                enhancedImage.classList.add('hidden');
+                enhanceBtn.disabled = true;
+                enhanceBtn.innerHTML = `<span class="loader"></span> Menganalisis...`;
+                
+                try {
+                    // Step 1: Analyze the image to create a detailed prompt
+                    const base64Data = originalImageData.split(',')[1];
+                    const mimeType = originalImageData.split(';')[0].split(':')[1];
+                    const analysisPrompt = "Describe this image in extreme detail for an AI image generator. Be very specific about every subject, the background, colors, textures, lighting, and overall mood. The goal is to recreate this image photorealistically.";
+                    
+                    const decodedApiKey = atob(obfuscatedApiKey);
+                    const analyzeUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${decodedApiKey}`;
+
+                    const analyzePayload = {
+                        contents: [{ role: "user", parts: [{ text: analysisPrompt }, { inlineData: { mimeType, data: base64Data } }] }]
+                    };
+
+                    const analyzeResponse = await fetch(analyzeUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(analyzePayload)
+                    });
+
+                    if (!analyzeResponse.ok) throw new Error('Gagal menganalisis gambar. Pastikan API Gemini aktif.');
+                    const analyzeResult = await analyzeResponse.json();
+                    
+                    if (!analyzeResult.candidates || analyzeResult.candidates.length === 0) {
+                        throw new Error('Analisis gambar tidak menghasilkan deskripsi. Coba gambar lain.');
+                    }
+                    let detailedPrompt = analyzeResult.candidates[0].content.parts[0].text;
+                    
+                    detailedPrompt += ", photorealistic, 8k, ultra high resolution, sharp focus, detailed, professional photography";
+                    
+                    enhanceBtn.innerHTML = `<span class="loader"></span> Menciptakan ulang...`;
+
+                    // Step 2: Generate a new image using the detailed prompt
+                    const generateUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${decodedApiKey}`;
+                    
+                    const generatePayload = {
+                        instances: [{ prompt: detailedPrompt }],
+                        parameters: { "sampleCount": 1 }
+                    };
+
+                    const generateResponse = await fetch(generateUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(generatePayload)
+                    });
+
+                    const generateResult = await generateResponse.json();
+
+                    if (!generateResponse.ok) {
+                        // **FIX: Menampilkan pesan error yang lebih detail dari API**
+                        const errorMessage = generateResult.error?.message || 'Gagal menciptakan gambar baru. Coba lagi nanti.';
+                        throw new Error(errorMessage);
+                    }
+                    
+                    if (generateResult.predictions && generateResult.predictions[0].bytesBase64Encoded) {
+                        const newImageData = `data:image/png;base64,${generateResult.predictions[0].bytesBase64Encoded}`;
+                        enhancedImage.src = newImageData;
+                        enhancedImage.classList.remove('hidden');
+                    } else {
+                        throw new Error('Respons dari API gambar tidak valid.');
+                    }
+                
+                } catch (error) {
+                    console.error("Error:", error);
+                    Swal.fire('Terjadi Kesalahan', error.message, 'error');
+                } finally {
+                    enhancerLoader.classList.add('hidden');
+                    enhanceBtn.disabled = false;
+                    enhanceBtn.innerHTML = `<i class="fas fa-wand-magic-sparkles mr-2"></i> Tingkatkan Kualitas Gambar`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

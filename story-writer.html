@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penulis Cerita AI - Darus AI Tools</title>
+    <meta name="description" content="Ciptakan cerita pendek yang unik berdasarkan ide, genre, dan karakter Anda sendiri dengan bantuan kecerdasan buatan dari Google Gemini.">
+    
+    <!-- Tailwind CSS & Font Awesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- ### NAVBAR ### -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold text-gray-800">
+                    <a href="./index.html" class="flex items-center">
+                        <i class="fas fa-brain text-blue-500 mr-2"></i>
+                        <span>Darus AI Tools</span>
+                    </a>
+                </div>
+                <!-- Menu untuk Desktop -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="./index.html" class="text-gray-600 hover:text-blue-500 font-semibold">Beranda</a>
+                    <a href="./generator.html" class="text-gray-600 hover:text-blue-500 font-semibold">Generate Prompt for Video</a>
+                    <a href="./photo-prompt.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Generate Prompt from Photo</a>
+                            <a href="./story-writer.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Penulis Cerita AI</a>
+                            <a href="./image-enhancer.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50">Peningkat Gambar</a>
+                </div>
+                <!-- Tombol Menu untuk Mobile -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Menu Mobile -->
+            <div id="mobile-menu" class="hidden md:hidden mt-3">
+                <a href="./index.html" class="block py-2 px-4 text-sm text-gray-800 hover:bg-blue-50 rounded">Beranda</a>
+                <a href="./generator.html" class="block py-2 px-4 text-sm text-gray-800 hover:bg-blue-50 rounded">Generate Prompt for Video</a>
+                <a href="./story-writer.html" class="block py-2 px-4 text-sm bg-blue-50 text-blue-600 font-bold rounded">Penulis Cerita</a>
+                <a href="#" class="block py-2 px-4 text-sm text-gray-500 cursor-not-allowed">Peningkat Gambar (Segera)</a>
+            </div>
+        </nav>
+    </header>
+    <!-- ### AKHIR NAVBAR ### -->
+
+    <div id="app" class="px-4 pb-8 pt-6 md:px-8">
+         <div class="max-w-4xl mx-auto bg-white p-6 md:p-8 rounded-lg shadow-2xl border border-gray-200">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-2 tracking-wide">
+                Penulis Cerita AI
+            </h1>
+            <p class="text-center text-gray-500 mb-8">Ciptakan cerita unik dari ide Anda dengan bantuan AI.</p>
+
+            <!-- Story Inputs -->
+            <div class="space-y-6">
+                <div>
+                    <label for="genre" class="block text-sm font-bold text-gray-700 mb-2">Pilih Genre Cerita:</label>
+                    <select id="genre" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                        <option>Fantasi</option>
+                        <option>Fiksi Ilmiah</option>
+                        <option>Horor</option>
+                        <option>Misteri</option>
+                        <option>Komedi</option>
+                        <option>Romantis</option>
+                        <option>Petualangan</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="character" class="block text-sm font-bold text-gray-700 mb-2">Deskripsikan Tokoh Utama:</label>
+                    <input type="text" id="character" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Contoh: Seorang detektif tua yang lelah tapi cerdas">
+                </div>
+                 <div>
+                    <label for="setting" class="block text-sm font-bold text-gray-700 mb-2">Deskripsikan Latar/Tempat:</label>
+                    <input type="text" id="setting" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Contoh: Sebuah kota kecil di tepi pantai saat musim hujan">
+                </div>
+                <div>
+                    <label for="plot" class="block text-sm font-bold text-gray-700 mb-2">Jelaskan Ide Pokok Cerita:</label>
+                    <textarea id="plot" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Contoh: Dia menemukan sebuah jam tua yang bisa menghentikan waktu, tetapi setiap kali digunakan, dia kehilangan sebagian ingatannya."></textarea>
+                </div>
+            </div>
+
+            <!-- Generate button -->
+            <div class="flex justify-center mt-8">
+                <button id="generate-story-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-green-300 flex items-center justify-center">
+                    <i class="fas fa-pen-fancy mr-2"></i> Buat Cerita
+                </button>
+            </div>
+            
+            <!-- Result section -->
+            <div id="story-result-container" class="hidden mt-8">
+                <div class="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-inner">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4 border-b-2 border-gray-300 pb-2">Hasil Cerita Anda:</h2>
+                    <div id="story-output" class="prose max-w-none text-gray-800 bg-white p-4 rounded-md border border-gray-300 overflow-auto max-h-[60vh]"></div>
+                    <div class="flex justify-center mt-4">
+                        <button id="copy-story-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-blue-300">Salin Cerita</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="3.js"></script>
+
+   
+</body>
+</html>
